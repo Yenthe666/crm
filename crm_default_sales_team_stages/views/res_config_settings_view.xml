@@ -16,8 +16,12 @@
                                 These stages will be automatically created and set when creating a new sales team:
                             </div>
                             <div class="mt16">
-                                <field name="sales_team_default_stage_ids" class="oe_inline" widget="many2many_tags"
-                                       placeholder="Default stages.."/>
+                                <field name="sales_team_default_stage_ids" class="oe_inline" widget="many2many">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
                             </div>
                         </div>
                     </div>
