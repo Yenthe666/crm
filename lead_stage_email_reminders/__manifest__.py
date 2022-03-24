@@ -10,7 +10,7 @@
     'version': '14.0.0.1',
     'website': 'https://www.mainframemonkey.com',
     'author': 'Mainframe Monkey',
-    'depends': ['base','crm','mail'],
+    'depends': ['crm', 'mail'],
     'data': [
         'security/ir.model.access.csv',
         'views/crm_stage_views.xml',
@@ -20,6 +20,4 @@
     ],
 
     'installable': True,
-    'application': False,
-    'auto_install': False,
 }

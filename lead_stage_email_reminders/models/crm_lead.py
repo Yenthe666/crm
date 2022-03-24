@@ -14,7 +14,7 @@ class CrmLead(models.Model):
         """
         stages_with_reminder = self.env['crm.stage'].search([
             ('send_automatic_reminder', '=', True),
-            ('lead_mail_rule_ids', '!=', [])
+            ('lead_mail_rule_ids', '!=', False)
         ])
 
         leads = self.env['crm.lead'].search([('stage_id', 'in', stages_with_reminder.ids)])
