@@ -8,7 +8,8 @@ class CrmTeam(models.Model):
     lead_mail_rule_ids = fields.One2many(
         comodel_name='lead.mail.rule',
         inverse_name='team_id',
-        string="Lead email rules"
+        string="Lead email rules",
+        context={'active_test': False}
     )
 
     lead_mail_rule_count = fields.Integer(
@@ -33,5 +34,6 @@ class CrmTeam(models.Model):
             "target": "current",
             "context": {
                 'default_team_id': self.id,
+                'active_test': False
             }
         }

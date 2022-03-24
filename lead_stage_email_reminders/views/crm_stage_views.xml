@@ -7,12 +7,12 @@
         <field name="arch" type="xml">
             <group position="after">
                 <group groups="sales_team.group_sale_salesman_all_leads" name="automatic_reminders" string="Automatic reminders">
-                    <field name="send_automatic_reminder" widget="boolean_toggle"/>
-                    <field name="lead_mail_rule_ids" attrs="{'invisible': [('send_automatic_reminder', '=', False)]}">
+                    <field name="lead_mail_rule_ids">
                         <tree editable="bottom">
                             <field name="email_template_id" />
                             <field name="name"/>
                             <field name="send_reminder_after" width="200px"/>
+                            <field name="active" widget="boolean_toggle"/>
                         </tree>
                     </field>
                 </group>

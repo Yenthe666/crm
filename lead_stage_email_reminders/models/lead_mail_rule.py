@@ -37,6 +37,11 @@ class LeadMailRule(models.Model):
         string="Sales Team"
     )
 
+    active = fields.Boolean(
+        string='Active',
+        default=True
+    )
+
     @api.onchange('email_template_id')
     def _onchange_email_template_id(self):
         for rule in self:

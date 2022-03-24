@@ -12,6 +12,7 @@
                         <field name="email_template_id"/>
                         <field name="name"/>
                         <field name="send_reminder_after"/>
+                        <field name="active" widget="boolean_toggle"/>
                     </group>
                 </sheet>
             </form>
@@ -27,6 +28,7 @@
                 <field name="email_template_id"/>
                 <field name="name"/>
                 <field name="send_reminder_after"/>
+                <field name="active" widget="boolean_toggle"/>
             </tree>
         </field>
     </record>
