@@ -1,5 +1,6 @@
 # -- coding: utf-8 --
-from odoo import models, fields
+from odoo import models, fields, _
+from odoo.exceptions import UserError
 
 
 class CrmStage(models.Model):
@@ -14,3 +15,9 @@ class CrmStage(models.Model):
         inverse_name='stage_id',
         string="Mail rules"
     )
+
+    def unlink(self):
+        for record in self:
+            if record.lead_mail_rule_ids:
+                raise UserError(_('There are e-mail reminder rules configured for this stage. Please remove them or change them so they belong to another stage first.'))
+        super(CrmStage, self).unlink()

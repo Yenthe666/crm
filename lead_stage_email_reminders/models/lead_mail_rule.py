@@ -16,7 +16,8 @@ class LeadMailRule(models.Model):
     stage_id = fields.Many2one(
         comodel_name='crm.stage',
         string="Stage Name",
-        domain="[('team_id', '=', team_id)]"
+        domain="[('team_id', '=', team_id)]",
+        required=True
     )
 
     email_template_id = fields.Many2one(
