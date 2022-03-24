@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="lead_mail_rule_view_form" model="ir.ui.view">
+        <field name="name">lead.mail.rule.form</field>
+        <field name="model">lead.mail.rule</field>
+        <field name="arch" type="xml">
+            <form string="Lead Mail Rule">
+                <sheet>
+                    <group>
+                        <field name="team_id" invisible="1"/>
+                        <field name="stage_id"/>
+                        <field name="email_template_id"/>
+                        <field name="name"/>
+                        <field name="send_reminder_after"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="lead_mail_rule_view_tree" model="ir.ui.view">
+        <field name="name">lead.mail.rule.tree</field>
+        <field name="model">lead.mail.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Lead Mail Rules" editable="bottom">
+                <field name="team_id" invisible="1"/>
+                <field name="stage_id"/>
+                <field name="email_template_id"/>
+                <field name="name"/>
+                <field name="send_reminder_after"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
