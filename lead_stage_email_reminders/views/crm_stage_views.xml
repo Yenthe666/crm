@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="crm_stage_form_inherit" model="ir.ui.view">
+    <record id="crm_stage_form_inherit_mail_reminder" model="ir.ui.view">
         <field name="name">crm.stage.form</field>
         <field name="model">crm.stage</field>
         <field name="inherit_id" ref="crm.crm_stage_form"/>
         <field name="arch" type="xml">
             <group position="after">
-                <group name="automatic_reminders" string="Automatic reminders">
+                <group groups="sales_team.group_sale_salesman_all_leads" name="automatic_reminders" string="Automatic reminders">
                     <field name="send_automatic_reminder" widget="boolean_toggle"/>
                     <field name="lead_mail_rule_ids" attrs="{'invisible': [('send_automatic_reminder', '=', False)]}">
                         <tree editable="bottom">
