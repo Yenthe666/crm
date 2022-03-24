@@ -13,7 +13,6 @@ class CrmLead(models.Model):
         Then send out the reminder if it is the correct day.
         """
         stages_with_reminder = self.env['crm.stage'].search([
-            ('send_automatic_reminder', '=', True),
             ('lead_mail_rule_ids', '!=', False)
         ])
 
@@ -22,7 +21,7 @@ class CrmLead(models.Model):
         today = date.today()
 
         for lead in leads:
-            for lead_rule in lead.stage_id.lead_mail_rule_ids:
+            for lead_rule in lead.stage_id.lead_mail_rule_ids.filtered(lambda rule:rule.active):
                 reminder_day = lead_rule.send_reminder_after
                 new_reminder_date = (lead.date_last_stage_update + timedelta(reminder_day)).date()
                 if new_reminder_date == today:
