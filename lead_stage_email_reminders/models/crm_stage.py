@@ -12,5 +12,5 @@ class CrmStage(models.Model):
     lead_mail_rule_ids = fields.One2many(
         comodel_name='lead.mail.rule',
         inverse_name='stage_id',
-        string="Rule"
+        string="Mail rules"
     )

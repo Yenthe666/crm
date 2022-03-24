@@ -6,6 +6,7 @@ from odoo.exceptions import  ValidationError
 class LeadMailRule(models.Model):
     _name = "lead.mail.rule"
     _description = "Email Reminders"
+    _order = "create_date asc"
 
     name = fields.Char(
         string='Name',
