@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="crm_team_stage_wizard_form" model="ir.ui.view">
+        <field name="name">crm.team.stage.wizard.form</field>
+        <field name="model">crm.team.stage.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update sales team stages">
+                <field name="state" invisible="1"/>
+                <group states="start">
+                    <field name="action" widget="radio" options="{'horizontal': true}"/>
+                    <field name="name"/>
+                    <field name="crm_team_ids" widget="many2many_tags"/>
+                </group>
+                <div states="start">
+                    <div class="alert alert-warning" role="alert" attrs="{'invisible': [('feedback', '=', False)]}">
+                        <field name="feedback" readonly="1" class="oe_inline" style="width: 100% !important;"/>
+                    </div>
+                </div>
+                <div states="done">
+                    <div class="alert alert-success" role="alert" attrs="{'invisible': [('feedback', '=', False)]}">
+                        <field name="feedback" readonly="1" class="oe_inline" style="width: 100% !important;"/>
+                    </div>
+                </div>
+                <footer states="start">
+                    <button name="cancel"
+                            special="cancel"
+                            string="Close"/>
+                    <button name="action_delete"
+                            type="object"
+                            class="btn-danger"
+                            string="DELETE STAGES"
+                            attrs="{'invisible': [('action', '!=', 'delete')]}"/>
+                    <button name="action_create"
+                            type="object"
+                            class="btn-success"
+                            string="ADD STAGES"
+                            attrs="{'invisible': [('action', '!=', 'create')]}"/>
+                </footer>
+                <footer states="done">
+                    <button name="cancel"
+                            special="cancel"
+                            string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

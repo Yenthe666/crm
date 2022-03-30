@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_crm_team_stage_wizard"
+              name="Update stages on sales teams"
+              parent="crm.crm_menu_config"
+              sequence="99"
+              action="action_crm_team_stage_wizard"
+              groups="sales_team.group_sale_manager"/>
+</odoo>
