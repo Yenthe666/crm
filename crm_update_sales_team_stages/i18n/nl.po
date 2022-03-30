@@ -1,0 +1,167 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crm_update_sales_team_stages
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-30 15:17+0000\n"
+"PO-Revision-Date: 2022-03-30 15:17+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crm_update_sales_team_stages
+#: model_terms:ir.ui.view,arch_db:crm_update_sales_team_stages.crm_team_stage_wizard_form
+msgid "ADD STAGES"
+msgstr "VOEG FASES TOE"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__action
+msgid "Action"
+msgstr "Actie"
+
+#. module: crm_update_sales_team_stages
+#: model_terms:ir.ui.view,arch_db:crm_update_sales_team_stages.crm_team_stage_wizard_form
+msgid "Close"
+msgstr "Sluiten"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields.selection,name:crm_update_sales_team_stages.selection__crm_team_stage_wizard__action__create
+msgid "Create"
+msgstr "Aanmaken"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: crm_update_sales_team_stages
+#: model_terms:ir.ui.view,arch_db:crm_update_sales_team_stages.crm_team_stage_wizard_form
+msgid "DELETE STAGES"
+msgstr "VERWIJDER FASES"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields.selection,name:crm_update_sales_team_stages.selection__crm_team_stage_wizard__action__delete
+msgid "Delete"
+msgstr "VERWIJDER"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__display_name
+msgid "Display Name"
+msgstr "Weergave naam"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields.selection,name:crm_update_sales_team_stages.selection__crm_team_stage_wizard__state__done
+msgid "Done"
+msgstr "Klaar"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__feedback
+msgid "Feedback"
+msgstr ""
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard____last_update
+msgid "Last Modified on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__crm_team_ids
+msgid "Sales teams"
+msgstr "Verkoopteams"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__name
+msgid "Stage name"
+msgstr "Naam fase"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields.selection,name:crm_update_sales_team_stages.selection__crm_team_stage_wizard__state__start
+msgid "Start"
+msgstr ""
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model.fields,field_description:crm_update_sales_team_stages.field_crm_team_stage_wizard__state
+msgid "State"
+msgstr "Status"
+
+#. module: crm_update_sales_team_stages
+#: code:addons/crm_update_sales_team_stages/wizard/crm_team_stage_wizard.py:0
+#, python-format
+msgid ""
+"The following sales teams already have a stage named %s:\n"
+"\n"
+msgstr ""
+"De volgende verkoopteams hebben al een fase genaamd %s:\n"
+"\n"
+
+#. module: crm_update_sales_team_stages
+#: code:addons/crm_update_sales_team_stages/wizard/crm_team_stage_wizard.py:0
+#, python-format
+msgid "The stage %s already exists as a default stage."
+msgstr "De fase %s bestaat al als standaard fase."
+
+#. module: crm_update_sales_team_stages
+#: code:addons/crm_update_sales_team_stages/wizard/crm_team_stage_wizard.py:0
+#, python-format
+msgid "The stage %s was successfully created for the selected sales teams."
+msgstr "De fase %s was succesvol aangemaakt voor de geselecteerde verkoopteams."
+
+#. module: crm_update_sales_team_stages
+#: code:addons/crm_update_sales_team_stages/wizard/crm_team_stage_wizard.py:0
+#, python-format
+msgid "The stage %s was successfully removed from the selected sales teams."
+msgstr "De fase %s was succesvol verwijderd van de geselecteerde verkoopteams."
+
+#. module: crm_update_sales_team_stages
+#: code:addons/crm_update_sales_team_stages/wizard/crm_team_stage_wizard.py:0
+#, python-format
+msgid ""
+"There are still leads that have the stage %s.\n"
+"Please change the stage of these leads first.\n"
+"\n"
+msgstr ""
+"Er zijn nog leads in de fase %s.\n"
+"Pas de fase van deze leads eerst aan.\n"
+"\n"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.actions.act_window,name:crm_update_sales_team_stages.action_crm_team_stage_wizard
+#: model_terms:ir.ui.view,arch_db:crm_update_sales_team_stages.crm_team_stage_wizard_form
+msgid "Update sales team stages"
+msgstr "Update verkoopteam fases"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.ui.menu,name:crm_update_sales_team_stages.menu_crm_team_stage_wizard
+msgid "Update stages on sales teams"
+msgstr "Update fases voor verkoopteams"
+
+#. module: crm_update_sales_team_stages
+#: model:ir.model,name:crm_update_sales_team_stages.model_crm_team_stage_wizard
+msgid "crm.team.stage.wizard"
+msgstr ""
