@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_crm_team_stage_wizard" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.team.stage.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="name">Update sales team stages</field>
+    </record>
+</odoo>
