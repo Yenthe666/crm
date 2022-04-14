@@ -9,6 +9,10 @@
                 <group states="start">
                     <field name="action" widget="radio" options="{'horizontal': true}"/>
                     <field name="name"/>
+                    <field name="location" attrs="{'invisible': [('action', '!=', 'create')]}"/>
+                    <field name="match_on_stage_name"
+                           attrs="{'invisible': ['|', ('location', 'not in', ['before', 'after']), ('action', '!=', 'create')],
+                                 'required': [('location', 'in', ['before', 'after']), ('action', '=', 'create')]}"/>
                     <field name="crm_team_ids" widget="many2many_tags"/>
                 </group>
                 <div states="start">
