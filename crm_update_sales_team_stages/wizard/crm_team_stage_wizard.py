@@ -27,6 +27,21 @@ class CrmTeamStageWizard(models.TransientModel):
         required=True
     )
 
+    location = fields.Selection(
+        selection=[
+            ('after_last', 'After last stage'),
+            ('before_first', 'Before first stage'),
+            ('before', 'Before'),
+            ('after', 'After')
+        ],
+        string='Stage location',
+        default='after_last'
+    )
+
+    match_on_stage_name = fields.Char(
+        string='Match on stage name'
+    )
+
     crm_team_ids = fields.Many2many(
         comodel_name='crm.team',
         string='Sales teams',
@@ -93,17 +108,83 @@ class CrmTeamStageWizard(models.TransientModel):
             })
             return self.return_wizard()
 
+        sequence = 0
+
+        teams_without_matching_stage = self._check_teams_without_matching_stage()
+        if teams_without_matching_stage:
+            self.write({
+                'feedback': _('The following sales teams have no stage named %s:\n\n') % self.match_on_stage_name + f"\n{team.name}" for team in teams_without_matching_stage
+            })
+            return self.return_wizard()
+
         # Create all the stages
         for team in self.crm_team_ids:
-            self.env['crm.stage'].create({
-                'name': self.name,
-                'team_id': team.id
-            })
+            sequence = self._get_sequence(team, sequence)
+            if sequence > 0:
+                self.env['crm.stage'].create({
+                    'name': self.name,
+                    'team_id': team.id,
+                    'sequence': sequence
+                })
+
         self.write({
             'feedback': _('The stage %s was successfully created for the selected sales teams.') % self.name,
             'state': 'done'
         })
         return self.return_wizard()
+
+    def _check_teams_without_matching_stage(self):
+        """
+        Check if there are any teams that don't have a stage to match the before or after statement (location) in the wizard
+        """
+        if self.location not in ['before', 'after']:
+            return []
+        teams = []
+        for team in self.crm_team_ids:
+            if not self.env['crm.stage'].search_count([('name', '=ilike', self.match_on_stage_name), ('team_id', '=', team.id)]):
+                teams.append(team)
+        return teams
+
+    def _get_sequence(self, team, sequence):
+        """
+        Get the sequence for the stage to create
+        """
+        # If the location is after the last existing stage, we get the highest sequence and increment with 1
+        if self.location == 'after_last':
+            if sequence == 0:
+                sequence = self.env['crm.stage'].search([], order='sequence desc', limit=1).sequence
+            return sequence + 1
+
+        # If the location is before the first existing stage, we increment the sequence of the existing stages with the total amount of stages that will be created
+        # We return the current sequence + 1
+        if self.location == 'before_first':
+            if sequence == 0:
+                stages = self.env['crm.stage'].search([], order='sequence desc')
+                total_new_stages = len(self.crm_team_ids)
+                for stage in stages:
+                    stage.sequence += total_new_stages
+            return sequence + 1
+
+        # If the location is after a selected stage, we increment the sequence of the existing stages after the selected stage with 1
+        # We return the sequence of the selected stage + 1
+        if self.location == 'after' and team:
+            matching_stage = self.env['crm.stage'].search([('name', '=ilike', self.match_on_stage_name), ('team_id', 'in', [False, team.id])], limit=1)
+            if matching_stage:
+                stages = self.env['crm.stage'].search([('sequence', '>', matching_stage.sequence), ('team_id', 'in', [team.id, False])], order='sequence desc')
+                for stage in stages:
+                    stage.sequence += 1
+                return matching_stage.sequence + 1
+
+        # If the location is before a selected stage, we increment the sequence of the existing stages on and after the selected stage with 1
+        # We return the original sequence of the selected stage
+        if self.location == 'before' and team:
+            matching_stage = self.env['crm.stage'].search([('name', '=ilike', self.match_on_stage_name), ('team_id', 'in', [False, team.id])], limit=1)
+            if matching_stage:
+                stages = self.env['crm.stage'].search([('sequence', '>=', matching_stage.sequence), ('team_id', 'in', [team.id, False])], order='sequence desc')
+                for stage in stages:
+                    stage.sequence += 1
+                return matching_stage.sequence
+        return 0
 
     def return_wizard(self):
         """
