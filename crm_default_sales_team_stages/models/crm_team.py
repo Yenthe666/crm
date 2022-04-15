@@ -16,11 +16,16 @@ class CrmTeam(models.Model):
 
         if name is not None:
             # Find all default stages configured under CRM > Configuration > Settings (stored on res.company)
-            default_crm_stages = crm_team.company_id.sales_team_default_stage_ids
+            default_crm_stages = crm_team.company_id.sales_team_default_stage_ids.sorted(lambda stage: stage.sequence)
+            # Get the highest existing sequence
+            sequence = self.env['crm.stage'].search([], order='sequence desc', limit=1).sequence
             # If any default stages we loop over them, copy them and then set the current team it's ID on it.
             if default_crm_stages:
                 for default_crm_stage in default_crm_stages:
+                    sequence += 1
+                    # Copy the stage and assign the correct team and add a new (unique) sequence
                     default_crm_stage.copy().write({
-                        'team_id': crm_team.id
+                        'team_id': crm_team.id,
+                        'sequence': sequence
                     })
         return crm_team
