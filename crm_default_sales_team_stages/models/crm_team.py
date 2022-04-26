@@ -14,7 +14,7 @@ class CrmTeam(models.Model):
         crm_team = super().create(values)
         name = values.get("name")
 
-        if name is not None:
+        if name is not None and not self._context.get('default_stages_added'):
             crm_team._add_default_stages()
         return crm_team
 
@@ -22,7 +22,7 @@ class CrmTeam(models.Model):
         """
         Auto create/set stages for copied sales teams (if configured)
         """
-        team = super(CrmTeam, self).copy(default)
+        team = super(CrmTeam, self.with_context({'default_stages_added': True})).copy(default)
         team._add_default_stages()
         return team
 
