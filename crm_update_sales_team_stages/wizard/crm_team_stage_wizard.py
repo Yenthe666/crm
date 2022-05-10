@@ -169,21 +169,23 @@ class CrmTeamStageWizard(models.TransientModel):
         # We return the sequence of the selected stage + 1
         if self.location == 'after' and team:
             matching_stage = self.env['crm.stage'].search([('name', '=ilike', self.match_on_stage_name), ('team_id', 'in', [False, team.id])], limit=1)
+            sequence = matching_stage.sequence
             if matching_stage:
                 stages = self.env['crm.stage'].search([('sequence', '>', matching_stage.sequence), ('team_id', 'in', [team.id, False])], order='sequence desc')
                 for stage in stages:
                     stage.sequence += 1
-                return matching_stage.sequence + 1
+                return sequence
 
         # If the location is before a selected stage, we increment the sequence of the existing stages on and after the selected stage with 1
         # We return the original sequence of the selected stage
         if self.location == 'before' and team:
             matching_stage = self.env['crm.stage'].search([('name', '=ilike', self.match_on_stage_name), ('team_id', 'in', [False, team.id])], limit=1)
+            sequence = matching_stage.sequence
             if matching_stage:
                 stages = self.env['crm.stage'].search([('sequence', '>=', matching_stage.sequence), ('team_id', 'in', [team.id, False])], order='sequence desc')
                 for stage in stages:
                     stage.sequence += 1
-                return matching_stage.sequence
+                return sequence
         return 0
 
     def return_wizard(self):
