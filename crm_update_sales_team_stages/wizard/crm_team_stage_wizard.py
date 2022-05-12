@@ -4,6 +4,7 @@ from odoo import fields, models, _
 
 class CrmTeamStageWizard(models.TransientModel):
     _name = "crm.team.stage.wizard"
+    _description = "Team stage configuration"
 
     state = fields.Selection(
         selection=[
