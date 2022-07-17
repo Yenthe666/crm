@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_lead_mail_reminder_wizard" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">lead.mail.reminder.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
