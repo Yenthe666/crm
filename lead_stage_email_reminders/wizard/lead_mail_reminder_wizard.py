@@ -33,9 +33,15 @@ class LeadMailReminderWizard(models.TransientModel):
         string='Feedback'
     )
 
+    valid_stage_ids = fields.Many2many(
+        comodel_name='crm.stage',
+        string='Valid stages'
+    )
+
     lead_ids = fields.Many2many(
         comodel_name='crm.lead',
-        string='Leads'
+        string='Leads',
+        domain="[('stage_id', 'in', valid_stage_ids)]"
     )
 
     def action_view_leads(self):
@@ -47,34 +53,51 @@ class LeadMailReminderWizard(models.TransientModel):
             'name': 'Leads with new reminder sent'
         }
 
-    def action_send_reminders(self):
+    @api.onchange('lead_mail_rule_ids')
+    def get_leads_for_reminder(self):
         """
-        Send reminders to the leads
+        Get all leads for reminders
         """
+        leads_to_remove = self.env['crm.lead']
+        for lead in self.lead_ids:
+            if lead.team_id not in self.team_ids:
+                leads_to_remove += lead
+
+        self.lead_ids -= leads_to_remove
+
         stages_with_reminder = self.env['crm.stage'].search([
             ('lead_mail_rule_ids', 'in', self.with_context(active_test=False).lead_mail_rule_ids.ids)
         ])
         leads = self.env['crm.lead'].search([('stage_id', 'in', stages_with_reminder.ids)])
         today = date.today()
-        lead_reminders_sent = []
         for lead in leads:
             for lead_rule in lead.stage_id.lead_mail_rule_ids:
                 reminder_day = lead_rule.send_reminder_after
                 new_reminder_date = (lead.date_last_stage_update + timedelta(reminder_day)).date()
                 if new_reminder_date <= today:
-                    lead_rule.email_template_id.use_default_to = True
-                    lead.with_context(lang=lead.partner_id.lang).message_post_with_template(
-                        lead_rule.email_template_id.id,
-                        email_layout_xmlid="mail.mail_notification_light"
-                    )
-                    lead_reminders_sent.append(lead)
+                    self.lead_ids += lead
+
+        # Set valid stages for selecting leads
+        self.valid_stage_ids = self.lead_mail_rule_ids.stage_id
+
+    def action_send_reminders(self):
+        """
+        Send reminders to the leads
+        """
+        for lead in self.lead_ids:
+            for lead_rule in lead.stage_id.lead_mail_rule_ids:
+                lead_rule.email_template_id.use_default_to = True
+                lead.with_context(lang=lead.partner_id.lang).message_post_with_template(
+                    lead_rule.email_template_id.id,
+                    email_layout_xmlid="mail.mail_notification_light"
+                )
         feedback = _('Reminders were sent to the following leads:\n')
-        for lead in lead_reminders_sent:
+        for lead in self.lead_ids:
             feedback += f'\n{lead.name}'
         self.write({
             'feedback': feedback,
             'state': 'done',
-            'lead_ids': [(6, 0, [l.id for l in lead_reminders_sent])]
+            'lead_ids': [(6, 0, self.lead_ids.ids)]
         })
         return {
             'type': 'ir.actions.act_window',
@@ -83,5 +106,5 @@ class LeadMailReminderWizard(models.TransientModel):
             'res_id': self.id,
             'views': [(False, 'form')],
             'target': 'new',
-            'name': 'Lead email reminders sent'
+            'name': _('Lead email reminders sent')
         }
