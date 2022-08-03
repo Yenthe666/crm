@@ -13,10 +13,17 @@
     'depends': ['crm', 'mail'],
     'data': [
         'security/ir.model.access.csv',
+
         'views/crm_stage_views.xml',
         'views/crm_team_views.xml',
         'views/lead_mail_rule_views.xml',
+
         'data/lead_mail_rule_cron.xml',
+
+        'wizard/lead_mail_reminder_wizard_views.xml',
+
+        'views/actions.xml',
+        'views/menu.xml',
     ],
 
     'installable': True,
