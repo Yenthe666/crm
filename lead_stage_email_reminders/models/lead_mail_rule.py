@@ -42,6 +42,12 @@ class LeadMailRule(models.Model):
         default=True
     )
 
+    @api.onchange('team_id')
+    def _onchange_team_id(self):
+        for rule in self:
+            if rule.stage_id and rule.stage_id.team_id != rule.team_id:
+                rule.stage_id = False
+
     @api.onchange('email_template_id')
     def _onchange_email_template_id(self):
         for rule in self:
@@ -60,3 +66,4 @@ class LeadMailRule(models.Model):
         for rule in self:
             if rule.stage_id:
                 rule.team_id = rule.stage_id.team_id
+

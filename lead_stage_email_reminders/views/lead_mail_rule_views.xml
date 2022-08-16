@@ -23,7 +23,7 @@
         <field name="model">lead.mail.rule</field>
         <field name="arch" type="xml">
             <tree string="Lead Mail Rules" editable="bottom">
-                <field name="team_id" invisible="1"/>
+                <field name="team_id" readonly="1"/>
                 <field name="stage_id"/>
                 <field name="email_template_id"/>
                 <field name="name"/>

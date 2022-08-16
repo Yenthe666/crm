@@ -58,6 +58,10 @@ class LeadMailReminderWizard(models.TransientModel):
         """
         Get all leads for reminders
         """
+        for rule in self.lead_mail_rule_ids:
+            if rule.team_id not in self.team_ids:
+                self.team_ids += rule.team_id
+
         leads_to_remove = self.env['crm.lead']
         for lead in self.lead_ids:
             if lead.team_id not in self.team_ids:
