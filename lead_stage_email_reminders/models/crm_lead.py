@@ -28,5 +28,7 @@ class CrmLead(models.Model):
                     lead_rule.email_template_id.use_default_to = True
                     lead.with_context(lang=lead.partner_id.lang).message_post_with_template(
                         lead_rule.email_template_id.id,
-                        email_layout_xmlid="mail.mail_notification_light"
+                        email_layout_xmlid="mail.mail_notification_light",
+                        composition_mode='mass_mail',  # composition mode and no_auto_thread are to enable a custom reply-to address
+                        no_auto_thread=True
                     )
